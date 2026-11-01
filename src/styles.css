@@ -1,0 +1,312 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-neon-pink: var(--neon-pink);
+  --color-neon-cyan: var(--neon-cyan);
+  --color-neon-purple: var(--neon-purple);
+  --font-display: "Sora", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  @keyframes shimmer {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(100%); }
+  }
+}
+
+:root {
+  --radius: 0.625rem;
+
+  /* Brand palette (user-specified hex) */
+  --bg-primary: #0d0e12;
+  --bg-secondary: #15171d;
+  --bg-card: #1a1c23;
+  --bg-hover: #22252e;
+  --brand-accent: #9333EA;
+  --brand-accent-hover: #A855F7;
+  --brand-blue: #7C3AED;
+  --brand-purple: #9333EA;
+  --brand-pink: #EC4899;
+  --text-white: #FFFFFF;
+  --text-gray: #B0B8C1;
+  --text-muted: #6B7280;
+  --state-success: #22C55E;
+  --state-warning: #F59E0B;
+  --state-error: #EF4444;
+
+  --background: #0d0e12;
+  --foreground: #FFFFFF;
+  --card: #1a1c23;
+  --card-foreground: #FFFFFF;
+  --popover: #15171d;
+  --popover-foreground: #FFFFFF;
+  --primary: #9333EA;
+  --primary-foreground: #FFFFFF;
+  --secondary: #15171d;
+  --secondary-foreground: #FFFFFF;
+  --muted: #22252e;
+  --muted-foreground: #B0B8C1;
+  --accent: #EC4899;
+  --accent-foreground: #FFFFFF;
+  --destructive: #EF4444;
+  --destructive-foreground: #FFFFFF;
+  --border: rgba(255,255,255,0.08);
+  --input: #1a1c23;
+  --ring: #9333EA;
+  --neon-pink: #EC4899;
+  --neon-cyan: #9333EA;
+  --neon-purple: #9333EA;
+
+  --gradient-neon: linear-gradient(135deg, #a855f7 0%, #d946ef 50%, #ec4899 100%);
+  --gradient-radial-glow: radial-gradient(1200px circle at 15% -5%, rgba(168,85,247,0.15), transparent 60%),
+                          radial-gradient(1000px circle at 85% 20%, rgba(236,72,153,0.12), transparent 60%),
+                          radial-gradient(800px circle at 50% 100%, rgba(217,70,239,0.1), transparent 70%);
+  --shadow-neon-pink: 0 0 25px rgba(236,72,153,0.3), 0 0 60px rgba(236,72,153,0.15);
+  --shadow-neon-cyan: 0 0 25px rgba(168,85,247,0.3), 0 0 60px rgba(168,85,247,0.15);
+  --glass-bg: rgba(26, 28, 35, 0.4);
+  --glass-border: rgba(255, 255, 255, 0.08);
+
+}
+
+.dark {
+  color-scheme: dark;
+}
+
+html, body { background: var(--background); color: var(--foreground); }
+body {
+  font-family: var(--font-sans);
+  background-image: var(--gradient-radial-glow);
+  background-attachment: scroll;
+  min-height: 100vh;
+}
+html.light body { background-image: none; }
+
+
+h1, h2, h3, .font-display { font-family: var(--font-display); letter-spacing: 0.02em; }
+
+@utility text-gradient-neon {
+  background-image: var(--gradient-neon);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@utility bg-gradient-neon { background-image: var(--gradient-neon); }
+@utility glow-pink { box-shadow: var(--shadow-neon-pink); }
+@utility glow-cyan { box-shadow: var(--shadow-neon-cyan); }
+@utility border-neon { border: 1px solid oklch(0.68 0.28 340 / 0.5); }
+
+@utility scanlines {
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 3px,
+    oklch(0.97 0.02 300 / 0.03) 3px,
+    oklch(0.97 0.02 300 / 0.03) 4px
+  );
+}
+
+@keyframes pulse-glow {
+  0%,100% { box-shadow: 0 0 20px oklch(0.68 0.28 340 / 0.4); }
+  50% { box-shadow: 0 0 40px oklch(0.68 0.28 340 / 0.8), 0 0 80px oklch(0.55 0.25 300 / 0.4); }
+}
+@utility animate-pulse-glow { animation: pulse-glow 2.4s ease-in-out infinite; }
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@utility animate-marquee { animation: marquee 40s linear infinite; }
+
+@utility animate-marquee-fast { animation: marquee 20s linear infinite; }
+
+@utility transition-fast { transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1); }
+
+@utility hover-lift {
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  &:hover { transform: translateY(-4px); }
+}
+
+/* Keep off-screen sections from doing layout/paint work until they approach the viewport. */
+.below-fold-section {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 520px;
+}
+
+@layer base {
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar { display: none; }
+}
+
+/* Hide global scrollbar (still scrollable) */
+html { scrollbar-width: none; }
+html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
+::-webkit-scrollbar { width: 0; height: 0; }
+[data-lovable-badge] { display: none !important; }
+
+
+/* Remap hardcoded dark surfaces to the new brand palette */
+.bg-\[\#0a0a0a\] { background-color: #0d0e12; }
+.bg-\[\#0a0a0a\]\/85 { background-color: rgba(11, 15, 20, 0.78); }
+.bg-\[\#0a0a0a\]\/95 { background-color: rgba(11, 15, 20, 0.9); }
+.bg-\[\#0a0a0a\]\/70 { background-color: rgba(11, 15, 20, 0.6); }
+.bg-\[\#120a1a\] { background-color: #15171d; }
+
+
+/* ============================================================
+   LIGHT THEME OVERRIDES
+   Toggled via `html.light` (see src/lib/theme.ts).
+   Remaps the hardcoded dark palette used across components.
+   ============================================================ */
+html.light {
+  color-scheme: light;
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+  --card: #ffffff;
+  --card-foreground: #0a0a0a;
+  --popover: #ffffff;
+  --popover-foreground: #0a0a0a;
+  --secondary: #f4f4f6;
+  --secondary-foreground: #0a0a0a;
+  --muted: #f1f1f4;
+  --muted-foreground: #4b5563;
+  --border: rgba(10,10,10,0.10);
+  --input: #f4f4f6;
+  --gradient-radial-glow: none;
+}
+html.light,
+html.light body {
+  background: #ffffff !important;
+  color: #0a0a0a !important;
+  background-image: none !important;
+}
+
+/* Remap hardcoded dark surfaces used across components */
+html.light .bg-\[\#0d0e12\],
+html.light .bg-\[\#0a0b0f\],
+html.light .bg-\[\#0a0a0a\],
+html.light .bg-\[\#0a0a0a\]\/85,
+html.light .bg-\[\#0a0a0a\]\/95,
+html.light .bg-\[\#0a0a0a\]\/70,
+html.light .bg-\[\#0a0b0f\]\/95,
+html.light .bg-\[\#0d0e12\]\/95,
+html.light .bg-\[\#0d0e12\]\/90,
+html.light .bg-\[\#0d0e12\]\/85,
+html.light .bg-\[\#0d0e12\]\/80 { background-color: #ffffff !important; }
+html.light .bg-\[\#120a1a\],
+html.light .bg-\[\#15171d\],
+html.light .bg-\[\#15171d\]\/80,
+html.light .bg-\[\#15171d\]\/85,
+html.light .bg-\[\#15171d\]\/95,
+html.light .bg-\[\#1a1c23\],
+html.light .bg-\[\#1a2230\],
+html.light .bg-\[\#141018\],
+html.light .bg-\[\#22252e\] { background-color: #f4f4f6 !important; }
+html.light .bg-black,
+html.light .bg-black\/25,
+html.light .bg-black\/40,
+html.light .bg-black\/50,
+html.light .bg-black\/60 { background-color: rgba(10,10,10,0.04) !important; }
+
+
+/* Gradient stops (from/via/to) — neutralize dark hex to white */
+html.light .from-\[\#0a0a0a\],
+html.light .from-\[\#0a0a0a\]\/60,
+html.light .from-\[\#0a0a0a\]\/70,
+html.light .from-\[\#0d0e12\],
+html.light .from-\[\#0d0e12\]\/60,
+html.light .from-\[\#0d0e12\]\/70,
+html.light .from-\[\#0d0e12\]\/80,
+html.light .from-\[\#0d0e12\]\/85,
+html.light .from-\[\#0a0b0f\],
+html.light .from-\[\#141018\] { --tw-gradient-from: #ffffff !important; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(255,255,255,0)) !important; }
+html.light .via-\[\#120a1a\],
+html.light .via-\[\#0a0a0a\]\/85,
+html.light .via-\[\#0d0e12\]\/85,
+html.light .via-\[\#0d0e12\]\/90,
+html.light .via-\[\#0a0b0f\] { --tw-gradient-via: #ffffff !important; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-via), var(--tw-gradient-to, rgba(255,255,255,0)) !important; }
+html.light .to-\[\#0a0a0a\],
+html.light .to-\[\#0d0e12\],
+html.light .to-\[\#0d0e12\]\/60,
+html.light .to-\[\#0a0b0f\]\/60 { --tw-gradient-to: #ffffff !important; }
+
+/* Gradient text that starts with white must become readable black on white theme. */
+html.light .from-white { --tw-gradient-from: #0a0a0a !important; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(10,10,10,0)) !important; }
+html.light .via-\[\#FFE7BE\],
+html.light .via-\[\#DDE5FF\] { --tw-gradient-via: #0a0a0a !important; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-via), var(--tw-gradient-to, rgba(10,10,10,0)) !important; }
+
+/* Text */
+html.light .text-white,
+html.light .text-white\/95,
+html.light .text-white\/90 { color: #0a0a0a !important; }
+html.light .text-white\/85 { color: rgba(10,10,10,0.88) !important; }
+html.light .text-white\/80 { color: rgba(10,10,10,0.82) !important; }
+html.light .text-white\/75 { color: rgba(10,10,10,0.78) !important; }
+html.light .text-white\/70 { color: rgba(10,10,10,0.72) !important; }
+html.light .text-white\/65 { color: rgba(10,10,10,0.68) !important; }
+html.light .text-white\/60 { color: rgba(10,10,10,0.62) !important; }
+html.light .text-white\/55 { color: rgba(10,10,10,0.58) !important; }
+
+html.light .text-white\/50 { color: rgba(10,10,10,0.55) !important; }
+html.light .text-white\/40 { color: rgba(10,10,10,0.5) !important; }
+html.light .text-white\/30 { color: rgba(10,10,10,0.42) !important; }
+html.light .placeholder\:text-white\/40::placeholder { color: rgba(10,10,10,0.5) !important; }
+
+/* Fills / hovers */
+html.light .bg-white\/\[0\.04\],
+html.light .bg-white\/5 { background-color: rgba(10,10,10,0.04) !important; }
+html.light .bg-white\/10 { background-color: rgba(10,10,10,0.07) !important; }
+html.light .bg-white\/15 { background-color: rgba(10,10,10,0.1) !important; }
+html.light .bg-white\/20 { background-color: rgba(10,10,10,0.12) !important; }
+html.light .hover\:bg-white\/5:hover { background-color: rgba(10,10,10,0.05) !important; }
+html.light .hover\:bg-white\/10:hover { background-color: rgba(10,10,10,0.08) !important; }
+html.light .hover\:bg-white\/20:hover { background-color: rgba(10,10,10,0.12) !important; }
+html.light .hover\:text-white:hover { color: #000 !important; }
+
+/* Borders */
+html.light .border-white\/5 { border-color: rgba(10,10,10,0.06) !important; }
+html.light .border-white\/10 { border-color: rgba(10,10,10,0.1) !important; }
+html.light .border-white\/15 { border-color: rgba(10,10,10,0.14) !important; }
+html.light .border-white\/20 { border-color: rgba(10,10,10,0.16) !important; }
+html.light .divide-white\/10 > * + * { border-color: rgba(10,10,10,0.1) !important; }
+html.light .ring-\[\#0d0e12\] { --tw-ring-color: #ffffff !important; }
+
+/* Scrollbar */
+html.light ::-webkit-scrollbar-track { background: #ececf1; }
+
+
