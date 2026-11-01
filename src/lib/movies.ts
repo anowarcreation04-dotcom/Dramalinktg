@@ -334,7 +334,7 @@ export function subscribeToMovie(id: string, onUpdate: (movie: any) => void): Un
         .sort((a: any, b: any) => episodeSortKey(a.episode_number) - episodeSortKey(b.episode_number));
       // Only expose seasons that contain at least one usable play or download link.
       const hasUsableEpisode = episodes.some((episode: any) =>
-        Boolean(episode.url || episode.video_url || episode.download_url || episode.download)
+        Boolean(episode.url || episode.video_url || episode.download_url || episode.download || episode.telegram_url || episode.telegram_player_url || episode.telegram_download_url)
       );
       if (!hasUsableEpisode) return null;
       return {
@@ -382,7 +382,7 @@ export async function fetchMovie(id: string) {
         .sort((a: any, b: any) => episodeSortKey(a.episode_number) - episodeSortKey(b.episode_number));
       // Only expose seasons that contain at least one usable play or download link.
       const hasUsableEpisode = episodes.some((episode: any) =>
-        Boolean(episode.url || episode.video_url || episode.download_url || episode.download)
+        Boolean(episode.url || episode.video_url || episode.download_url || episode.download || episode.telegram_url || episode.telegram_player_url || episode.telegram_download_url)
       );
       if (!hasUsableEpisode) return null;
       return {
