@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /auth
+Disallow: /account
+Disallow: /watchlist
+Disallow: /library
+
+Sitemap: https://xanuarwebsite.lovable.app/sitemap.xml

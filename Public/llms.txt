@@ -1,0 +1,13 @@
+# DramaLinkTG
+
+> Cyberpunk-styled movie streaming platform. Discover, watch, and collect cinematic experiences with resume-across-devices playback.
+
+DramaLinkTG is a neon-themed streaming site featuring movies and series organized by genre, with per-user watchlists, comments, and cross-device resume playback.
+
+## Pages
+
+- [Home](/): Featured movies, hero slider, and curated rows.
+- [Movies](/movies): Full movie catalog organized by genre.
+- [Series](/series): Series and shows organized by genre.
+- [Browse](/browse): Browse the full catalog with genre filters.
+- [Search](/search): Search titles across the catalog.
