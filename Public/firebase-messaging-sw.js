@@ -2,12 +2,13 @@ importScripts('https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js')
 importScripts('https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compat.js');
 
 firebase.initializeApp({
-  apiKey: "AIzaSyBhNDKa_wazyNjOY3E0pWhRw80klEteXl4",
-  authDomain: "dramawatchstoree.firebaseapp.com",
-  projectId: "dramawatchstoree",
-  storageBucket: "dramawatchstoree.firebasestorage.app",
-  messagingSenderId: "28367909386",
-  appId: "1:28367909386:web:2c870547ef1778b8d265f3"
+  apiKey: "AIzaSyDcxQG3bBZziMtUR4usMp-wtwhBdkE5lHc",
+  authDomain: "dramalinktg.firebaseapp.com",
+  projectId: "dramalinktg",
+  storageBucket: "dramalinktg.firebasestorage.app",
+  messagingSenderId: "506843084188",
+  appId: "1:506843084188:web:9f1a61051ef52401a04459",
+  measurementId: "G-T7J3WD2XTF"
 });
 
 const messaging = firebase.messaging();
