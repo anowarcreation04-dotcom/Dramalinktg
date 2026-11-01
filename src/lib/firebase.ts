@@ -3,12 +3,13 @@ import { getFirestore } from "firebase/firestore";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDc1rooAJUFTESaK5skv2xpzsr1t-riyRY",
-  authDomain: "anivoflix.firebaseapp.com",
-  projectId: "anivoflix",
-  storageBucket: "anivoflix.appspot.com",
-  messagingSenderId: "1234567890",
-  appId: "1:1234567890:web:abcdef123456"
+  apiKey: "AIzaSyDcxQG3bBZziMtUR4usMp-wtwhBdkE5lHc",
+  authDomain: "dramalinktg.firebaseapp.com",
+  projectId: "dramalinktg",
+  storageBucket: "dramalinktg.firebasestorage.app",
+  messagingSenderId: "506843084188",
+  appId: "1:506843084188:web:9f1a61051ef52401a04459",
+  measurementId: "G-T7J3WD2XTF"
 };
 
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
@@ -23,7 +24,7 @@ export const requestForToken = async () => {
     const permission = await Notification.requestPermission();
     if (permission === "granted") {
       const token = await getToken(messaging, {
-        vapidKey: "BP8v9pU2Kz9fD5Yp6gNnC5B6mR7b9gHkL1xZz2qQ",
+        vapidKey: "YOUR_VAPID_KEY",
       });
       if (token) return token;
     }
