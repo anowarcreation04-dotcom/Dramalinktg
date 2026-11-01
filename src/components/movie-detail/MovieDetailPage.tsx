@@ -247,7 +247,7 @@ export function MoviePage() {
   // one episode with a playable or downloadable link.
   const seasons = (((movie as any)?.seasons || []) as any[])
     .filter((season: any) => Array.isArray(season.episodes) && season.episodes.some((episode: any) =>
-      Boolean(episode.url || episode.video_url || episode.download_url || episode.download)
+      Boolean(episode.url || episode.video_url || episode.download_url || episode.download || episode.telegram_url || episode.telegram_player_url || episode.telegram_download_url)
     ))
     .slice()
     .sort((a: any, b: any) => (Number(a.season_number) || 0) - (Number(b.season_number) || 0));
@@ -380,11 +380,7 @@ export function MoviePage() {
   // selection: only episodes that actually have a link for that exact
   // combination, so a missing Player/Download/Telegram link on one episode
   // hides just that episode's button instead of showing a dead button.
-  const displayEpisodeList = serverChoice === "telegram"
-    ? telegramEpisodeList
-    : episodeAction === "download"
-    ? episodeList.filter((ep: any) => !!ep.download_url)
-    : episodeList.filter((ep: any) => !!ep.url);
+  const displayEpisodeList = telegramEpisodeList;
 
   // Auto-pick the server when only one side actually has a link, so the
   // visitor isn't shown a choice between a working button and a dead one.
@@ -433,30 +429,15 @@ export function MoviePage() {
 
   const handleEpisodeClick = (episodeIndex: number) => {
     const ep = displayEpisodeList[episodeIndex];
-    if (!ep || !episodeAction) return;
-    const url = serverChoice === "telegram"
-      ? (ep.telegram_url || ep.telegram_player_url || ep.telegram_download_url)
-      : (episodeAction === "download" ? ep.download_url : ep.url);
+    if (!ep) return;
+    const url = ep.telegram_url || ep.telegram_player_url || ep.telegram_download_url;
     if (!url) return;
-
     const originalIndex = episodeList.findIndex((item: any) => item.id === ep.id);
     const buttonKeySuffix = ep.id || `${episodeIndex}`;
     setSelectedEpisode(originalIndex >= 0 ? originalIndex : episodeIndex);
-    if (serverChoice === "main") {
-      if (episodeAction === "play") {
-        const targetIndex = originalIndex >= 0 ? originalIndex : episodeIndex;
-        runGatedClick(`player-${id}-${buttonKeySuffix}`, directLinks.player, () => startPlaying(targetIndex));
-      } else {
-        runGatedClick(`download-${id}-${buttonKeySuffix}`, directLinks.downloadTelegram, () =>
-          window.open(url, "_blank", "noopener,noreferrer")
-        );
-      }
-    } else {
-      runGatedClick(`telegram-${id}-${buttonKeySuffix}`, directLinks.downloadTelegram, () => {
-        window.open(url, "_blank", "noopener,noreferrer");
-        toast.success(episodeAction === "download" ? "Opening Telegram download…" : "Opening Telegram player…");
-      });
-    }
+    runGatedClick(`telegram-${id}-${buttonKeySuffix}`, directLinks.downloadTelegram, () => {
+      window.open(url, "_blank", "noopener,noreferrer");
+    });
   };
 
   const telegramLink: string | null =
@@ -585,7 +566,7 @@ export function MoviePage() {
 
               {movie.description && <DescriptionBox text={movie.description} />}
 
-              {/* Single Telegram button — the only action on a post page */}
+              {/* Only a Telegram button — no Play / Download buttons */}
               {telegramLink && (
                 <div className="mt-6">
                   <button
@@ -602,6 +583,68 @@ export function MoviePage() {
           </div>
         </div>
       </section>
+
+      {isEpisodeContent && seasons.length > 0 && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 pt-5">
+          <div className="rounded-2xl border border-white/10 bg-white/[0.035] p-3 sm:p-4 shadow-[0_15px_50px_rgba(0,0,0,0.25)]">
+            <p className="text-[11px] sm:text-xs font-black uppercase tracking-[0.2em] text-white/85 mb-3">Seasons</p>
+            <div className="flex flex-wrap gap-2">
+              {seasons.map((season: any, index: number) => {
+                const active = season.id === selectedSeason?.id;
+                const label = season.title || `Season ${season.season_number ?? index + 1}`;
+                return <button key={season.id || index} type="button"
+                  onClick={() => setSelectedSeasonId(season.id)}
+                  className={cn("px-4 py-2 rounded-lg border text-xs font-black transition-all", active ? "border-purple-300/70 bg-gradient-to-r from-purple-600/80 to-pink-500/80 text-white shadow-[0_0_18px_rgba(168,85,247,0.35)]" : "border-white/10 bg-white/[0.045] text-white/70 hover:border-purple-400/60 hover:text-white")}
+                >{label}</button>;
+              })}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {isEpisodeContent && displayEpisodeList.length > 0 && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 py-5">
+
+
+          <div className="rounded-2xl border border-white/10 bg-white/[0.035] backdrop-blur-none p-3 sm:p-4 shadow-[0_15px_50px_rgba(0,0,0,0.35)]">
+            <div className="flex items-center justify-between gap-3 mb-3">
+              <div>
+                <p className="text-[11px] sm:text-xs font-black uppercase tracking-[0.2em] text-white/85">
+                  {isMovieQuality ? "Quality" : "Episodes"}
+                </p>
+                <p className="text-[9px] sm:text-[10px] text-white/35 mt-1">
+                  {isMovieQuality ? "একটা কোয়ালিটি বেছে নিন — টেলিগ্রাম লিংক খুলবে।" : "একটা এপিসোড বেছে নিন — টেলিগ্রাম লিংক খুলবে।"}
+                </p>
+              </div>
+            </div>
+            <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-2">
+              {displayEpisodeList.map((ep: any, idx: number) => {
+                const label = String(ep.episode_number ?? idx + 1);
+                const active = episodeList.findIndex((item: any) => item.id === ep.id) === selectedEpisode;
+                return (
+                  <button
+                    key={ep.id || idx}
+                    type="button"
+                    data-anivoflix-episode-button="true"
+                    onPointerDown={(event) => event.stopPropagation()}
+                    onClick={(event) => { event.stopPropagation(); handleEpisodeClick(idx); }}
+                    className={cn(
+                      "relative h-10 sm:h-11 rounded-lg border text-[10px] sm:text-[11px] font-black tracking-wider transition-all duration-200 overflow-hidden",
+                      active
+                        ? "border-purple-300/70 bg-gradient-to-r from-purple-600/80 to-pink-500/80 text-white shadow-[0_0_22px_rgba(168,85,247,0.5)]"
+                        : "border-white/10 bg-white/[0.045] text-white/70 hover:border-purple-400/60 hover:bg-purple-500/10 hover:text-white hover:shadow-[0_0_18px_rgba(168,85,247,0.3)]"
+                    )}
+                    title={ep.title || `${isMovieQuality ? "Quality" : "Episode"} ${label}`}
+                  >
+                    <span className="relative z-10">{label}</span>
+                    <span className="absolute inset-x-2 bottom-0 h-px bg-gradient-to-r from-transparent via-fuchsia-400/70 to-transparent opacity-70" />
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Related posts stay directly below the Player / Download controls. */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-8">
