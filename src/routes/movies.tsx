@@ -13,7 +13,7 @@ export const Route = createFileRoute("/movies")({
       { property: "og:title", content: "Movies — DramaLinkTG" },
       { property: "og:description", content: "Browse movies on DramaLinkTG." },
     ],
-    links: [{ rel: "canonical", href: "https://anivoflix.com/movies" }],
+    links: [{ rel: "canonical", href: "https://dramalinktg.anowarcreation04.workers.dev/movies" }],
   }),
   component: MoviesPage,
 });

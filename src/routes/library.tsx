@@ -14,7 +14,7 @@ export const Route = createFileRoute("/library")({
       { property: "og:title", content: "Library — DramaLinkTG" },
       { property: "og:description", content: "Browse every category and language on DramaLinkTG in one place." },
     ],
-    links: [{ rel: "canonical", href: "https://anivoflix.com/library" }],
+    links: [{ rel: "canonical", href: "https://dramalinktg.anowarcreation04.workers.dev/library" }],
   }),
   component: LibraryPage,
 });

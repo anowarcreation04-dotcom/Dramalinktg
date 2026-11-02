@@ -38,9 +38,9 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Discover movies, series and mini dramas on DramaLinkTG." },
       { property: "og:title", content: "DramaLinkTG" },
       { property: "og:description", content: "Discover movies, series and mini dramas on DramaLinkTG." },
-      { property: "og:url", content: "https://anivoflix.com/" },
+      { property: "og:url", content: "https://dramalinktg.anowarcreation04.workers.dev/" },
     ],
-    links: [{ rel: "canonical", href: "https://anivoflix.com/" }],
+    links: [{ rel: "canonical", href: "https://dramalinktg.anowarcreation04.workers.dev/" }],
   }),
   component: Home_,
 });

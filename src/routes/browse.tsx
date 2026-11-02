@@ -12,9 +12,9 @@ export const Route = createFileRoute("/browse")({
       { name: "description", content: "Browse the full DramaLinkTG catalog and filter by genre to find your next movie in the neon-lit grid." },
       { property: "og:title", content: "Browse — DramaLinkTG" },
       { property: "og:description", content: "Browse the full DramaLinkTG catalog and filter by genre to find your next movie in the neon-lit grid." },
-      { property: "og:url", content: "https://anivoflix.com/browse" },
+      { property: "og:url", content: "https://dramalinktg.anowarcreation04.workers.dev/browse" },
     ],
-    links: [{ rel: "canonical", href: "https://anivoflix.com/browse" }],
+    links: [{ rel: "canonical", href: "https://dramalinktg.anowarcreation04.workers.dev/browse" }],
   }),
   component: Browse,
 });

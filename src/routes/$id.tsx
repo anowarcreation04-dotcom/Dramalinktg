@@ -7,7 +7,7 @@ import {
   MovieDetailNotFoundComponent,
 } from "@/components/movie-detail/MovieDetailPage";
 
-// Public share URL: https://anivoflix.com/<post-id>
+// Public share URL: https://dramalinktg.anowarcreation04.workers.dev/<post-id>
 // A single top-level dynamic route avoids category-specific route conflicts.
 export const Route = createFileRoute("/$id")({
   loader: movieLoader,

@@ -41,11 +41,11 @@ export const Route = createFileRoute("/adminpanell")({
 type Tab = "dashboard" | "movies" | "series" | "anime" | "tv-shows" | "mini-drama" | "serial" | "stars" | "categories" | "settings" | "ads" | "notices";
 
 // Public site domain used to build shareable links for posts.
-const SITE_URL = "https://anivoflix.com";
+const SITE_URL = "https://dramalinktg.anowarcreation04.workers.dev";
 
 // Admin share/copy links MUST point to the public search page,
 // never directly to the post ID.
-// Example: https://anivoflix.com/search?q=My+Bias%2C+My+Boss
+// Example: https://dramalinktg.anowarcreation04.workers.dev/search?q=My+Bias%2C+My+Boss
 function buildShareLink(m: Movie) {
   const url = new URL("/search", SITE_URL);
   url.searchParams.set("q", (m.title || "").trim());

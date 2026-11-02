@@ -13,9 +13,9 @@ export const Route = createFileRoute("/search")({
       { name: "description", content: "Search the DramaLinkTG catalog to find movies and series by title across every genre." },
       { property: "og:title", content: "Search — DramaLinkTG" },
       { property: "og:description", content: "Search the DramaLinkTG catalog to find movies and series by title across every genre." },
-      { property: "og:url", content: "https://anivoflix.com/search" },
+      { property: "og:url", content: "https://dramalinktg.anowarcreation04.workers.dev/search" },
     ],
-    links: [{ rel: "canonical", href: "https://anivoflix.com/search" }],
+    links: [{ rel: "canonical", href: "https://dramalinktg.anowarcreation04.workers.dev/search" }],
   }),
   component: SearchPage,
 });
