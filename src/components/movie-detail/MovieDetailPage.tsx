@@ -38,7 +38,7 @@ export const movieLoader = async ({ params }: { params: { id: string } }) => {
 };
 
 export const movieHead = ({ params, loaderData }: { params: { id: string }; loaderData?: { movie: any } }) => {
-    const url = `https://anivoflix.com/${encodeURIComponent(params.id)}`;
+    const url = `https://dramalinktg.anowarcreation04.workers.dev/${encodeURIComponent(params.id)}`;
     const movie = loaderData?.movie;
     if (!movie) {
       return {
